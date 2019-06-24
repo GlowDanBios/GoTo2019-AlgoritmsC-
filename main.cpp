@@ -1,67 +1,22 @@
 #include <iostream>
 #include <string>
-#include <stack>
+#include <set>
 using namespace std;
 
 int main(){
-    stack <char> opened;
-    stack <char> firsttype;
-    stack <char> secondtype;
-    stack <char> thirdtype;
-    string str;
-    cin >> str;
-    char b;
-    if (str[0] == ')' or str[0] == ']' or str[0] == '}'){
-        cout << "no" << endl;
-        return 0;
-    }
-    for (int i = 0; i< str.size(); i++){
-        b = str[i];
-        if (b == ')'){
-            if (!opened.empty()){
-                if (opened.top() == '(') {
-                    opened.pop();
-                    continue;
-                }
-                        else{
-                    cout << "no" << endl;
-                    return 0;
-                }
-            }
-
+    int n;
+    string a;
+    cin >> n;
+    set <char> letters;
+    for (int i = 0; i<n; i++){
+        cin >> a;
+        for (int i = 0; i < a.size(); i++){
+            letters.insert(a[i]);
         }
-        if (!opened.empty()){
-            if (b == ']'){
-                if (opened.top() == '[' and !opened.empty()){
-                    opened.pop();
-                    continue;
-                }
-                else{
-                    cout << "no" << endl;
-                    return 0;
-                }
-            }
-        }
-        if (!opened.empty()){
-            if (b == '}'){
-                if (opened.top() == '{' and !opened.empty()){
-                    opened.pop();
-                    continue;
-                }
-                else{
-                    cout << "no" << endl;
-                    return 0;
-                }
-            }
-        }
-
-        opened.push(b);
     }
-    if (opened.empty()){
-        cout << "yes" << endl;
+    string k;
+    for (auto i : letters){
+        k += i;
     }
-    else{
-        cout << "no" << endl;
-    }
-
+    cout << k << endl;
 }
