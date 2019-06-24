@@ -4,33 +4,64 @@
 using namespace std;
 
 int main(){
-    string command;
-    int n;
-    stack <int> steck;
-    while (true){
-        cin >> command;
-        if (command == "exit") {
-            cout << "bye" << endl;
-            break;
-        }
-        if (command == "push") {
-            cin >> n;
-            steck.push(n);
-            cout << "ok" << endl;
-        }
-        if (command == "pop") {
-            cout << steck.top() << endl;
-            steck.pop();
-        }
-        if (command == "back") {
-            cout << steck.top() << endl;
-        }
-        if (command == "size") {
-            cout << steck.size() << endl;
-        }
-        if (command == "clear") {
-            steck = stack<int>();
-            cout << "ok" << endl;
-        }
+    stack <char> opened;
+    stack <char> firsttype;
+    stack <char> secondtype;
+    stack <char> thirdtype;
+    string str;
+    cin >> str;
+    char b;
+    if (str[0] == ')' or str[0] == ']' or str[0] == '}'){
+        cout << "no" << endl;
+        return 0;
     }
+    for (int i = 0; i< str.size(); i++){
+        b = str[i];
+        if (b == ')'){
+            if (!opened.empty()){
+                if (opened.top() == '(') {
+                    opened.pop();
+                    continue;
+                }
+                        else{
+                    cout << "no" << endl;
+                    return 0;
+                }
+            }
+
+        }
+        if (!opened.empty()){
+            if (b == ']'){
+                if (opened.top() == '[' and !opened.empty()){
+                    opened.pop();
+                    continue;
+                }
+                else{
+                    cout << "no" << endl;
+                    return 0;
+                }
+            }
+        }
+        if (!opened.empty()){
+            if (b == '}'){
+                if (opened.top() == '{' and !opened.empty()){
+                    opened.pop();
+                    continue;
+                }
+                else{
+                    cout << "no" << endl;
+                    return 0;
+                }
+            }
+        }
+
+        opened.push(b);
+    }
+    if (opened.empty()){
+        cout << "yes" << endl;
+    }
+    else{
+        cout << "no" << endl;
+    }
+
 }
