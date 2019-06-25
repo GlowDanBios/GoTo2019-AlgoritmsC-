@@ -1,22 +1,30 @@
 #include <iostream>
 #include <string>
-#include <set>
+#include <queue>
 using namespace std;
 
 int main(){
+    string command;
     int n;
-    string a;
-    cin >> n;
-    set <char> letters;
-    for (int i = 0; i<n; i++){
-        cin >> a;
-        for (int i = 0; i < a.size(); i++){
-            letters.insert(a[i]);
+    priority_queue <int, vector<int>, less<int>> nums;
+    while (cin >> command){
+        if (command == "CLEAR"){
+            if (!nums.empty()){
+                nums = priority_queue <int, vector<int>, less<int>>();
+            }
+        }
+        if (command == "ADD") {
+            cin >> n;
+            nums.push(n);
+        }
+        if (command == "EXTRACT"){
+            if (nums.empty()) {
+                cout << "CANNOT" << endl;
+            }
+            else {
+                cout << nums.top() << endl;
+                nums.pop();
+            }
         }
     }
-    string k;
-    for (auto i : letters){
-        k += i;
-    }
-    cout << k << endl;
 }
